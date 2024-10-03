@@ -1,0 +1,7 @@
+model Author {
+    authorid    Int      @id @default(autoincrement())
+    authorname  String
+    authoremail String   @unique
+    createdat   DateTime @default(now())
+    Books       Book[] // Use singular model name "Book"
+}

@@ -1,0 +1,9 @@
+model Rental {
+    rentalid   Int      @id @default(autoincrement())
+    startdate  DateTime
+    enddate    DateTime
+    user       User     @relation(fields: [userUserid], references: [userid]) // Required user
+    userUserid Int
+    book       Book     @relation(fields: [bookBookid], references: [bookid]) // Required book
+    bookBookid Int
+}

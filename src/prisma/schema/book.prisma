@@ -1,0 +1,11 @@
+model Book {
+    bookid         Int         @id @default(autoincrement())
+    title          String
+    description    String
+    rentalprice    Float
+    sellingprice   Float
+    author         Author      @relation(fields: [authorAuthorid], references: [authorid])
+    authorAuthorid Int
+    Rentals        Rental[]
+    Purchased      Purchased[]
+}

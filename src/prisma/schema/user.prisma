@@ -1,3 +1,9 @@
 model User {
-    name String @unique
+    userid    Int         @id @default(autoincrement())
+    fullname  String
+    email     String      @unique
+    password  String
+    createdat DateTime    @default(now())
+    Borrowed  Rental[]
+    Purchased Purchased[]
 }
