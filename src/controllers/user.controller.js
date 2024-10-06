@@ -7,13 +7,13 @@ export const signup = async (req, res) => {
   const { fullname, email, password } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
     const response = await db.user.create({
       data: {
         fullname,
         email,
-        password: hashedPassword,
+        password,
       },
     });
 
@@ -37,16 +37,16 @@ export const signin = async (req, res) => {
     if (!user) {
       res.status(404).send("User not Found");
     }
-    const passwordvalid = await bcrypt.compare(password, user.password);
-    if (!passwordvalid) {
+    // const passwordvalid = await bcrypt.compare(password, user.password);
+    if (user.password !== password) {
       res.status(400).send("Password is Incorrect");
     }
     const token = jwt.sign(
       user.email,
       `${process.env.JWT_SECRET},{expiresIn:"1h"}`
     );
-    res.cookie("token", "Bearer "+token, {
-      httpOnly: true, 
+    res.cookie("token", "Bearer " + token, {
+      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 3600000,
     });
