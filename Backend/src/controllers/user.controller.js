@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
+import transporter from "../utils/email.service.js";
+import sendEmail from "../utils/email.service.js";
 export const signup = async (req, res) => {
   const { fullname, email, password } = req.body;
 
@@ -16,7 +18,7 @@ export const signup = async (req, res) => {
         password,
       },
     });
-
+    sendEmail(response.email, response.fullname);
     res
       .status(200)
       .json({ message: "User successfully signed up", signupSuccess: true });
