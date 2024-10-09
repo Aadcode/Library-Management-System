@@ -3,11 +3,12 @@ import dotenv from "dotenv";
 import userroutes from "./routes/user.routes.js";
 import authorroutes from "./routes/author.route.js";
 import bookroutes from "./routes/book.route.js";
+import sessionMiddleware from "./middlewares/session.middleware.js";
 
 const app = express();
 dotenv.config();
 app.use(express.json());
-
+app.use(sessionMiddleware);
 app.use("/user", userroutes);
 app.use("/author", authorroutes);
 app.use("/books", bookroutes);

@@ -18,7 +18,7 @@ export const signup = async (req, res) => {
         password,
       },
     });
-    sendEmail(response.email, response.fullname);
+    // sendEmail(response.email, response.fullname);
     res
       .status(200)
       .json({ message: "User successfully signed up", signupSuccess: true });
@@ -43,16 +43,7 @@ export const signin = async (req, res) => {
     if (user.password !== password) {
       res.status(400).send("Password is Incorrect");
     }
-    const token = jwt.sign(
-      user.email,
-      `${process.env.JWT_SECRET},{expiresIn:"1h"}`
-    );
-    res.cookie("token", "Bearer " + token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 3600000,
-    });
-
+    req.session.isLoggedIn = true;
     res
       .status(200)
       .json({ message: "Sign in successful", signinSuccess: true });

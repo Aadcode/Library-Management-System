@@ -1,0 +1,8 @@
+model Session {
+    id        String   @id @default(cuid()) // Automatically generate a unique ID
+    sid       String   @unique // Session ID, must be unique
+    data      String // Serialized session data
+    expiresAt DateTime // Expiration date of the session
+    createdAt DateTime @default(now()) // Automatically set when session is created
+    updatedAt DateTime @updatedAt // Automatically updated when session is modified
+}
