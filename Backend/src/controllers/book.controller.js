@@ -24,3 +24,23 @@ export const bookdetail = async (req, res) => {
     res.status(500).send("Book details are Not available");
   }
 };
+
+export const addnewbook = async (req, res) => {
+  const { title, description, rentalprice, sellingprice, authorAuthorid } =
+    req.body;
+  try {
+    await db.book.create({
+      data: {
+        title,
+        description,
+        sellingprice,
+        rentalprice,
+        authorAuthorid,
+      },
+    });
+    res.status(200).send("Book is created");
+  } catch {
+    res.status(500).send("Error in Creating book");
+  }
+};
+

@@ -34,7 +34,7 @@ export const signin = async (req, res) => {
         authoremail,
       },
     });
-    console.log(author);
+
     if (!author) {
       res.status(404).send("author not Found");
     }
@@ -42,15 +42,8 @@ export const signin = async (req, res) => {
     if (author.authorpassword !== authorpassword) {
       res.status(400).send("Password is Incorrect");
     }
-    const token = jwt.sign(
-      author.authoremail,
-      `${process.env.JWT_SECRET},{expiresIn:"1h"}`
-    );
-    res.cookie("token", "Bearer " + token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 3600000,
-    });
+    req.session.isLoggedIn = true;
+    req.session.authorid = author.authorid;
 
     res
       .status(200)
