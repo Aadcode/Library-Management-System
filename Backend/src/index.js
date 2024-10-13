@@ -9,10 +9,10 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(sessionMiddleware);
+
 app.use("/user", userroutes);
 app.use("/author", authorroutes);
 app.use("/books", bookroutes);
-
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening at ${process.env.PORT} `);

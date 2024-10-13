@@ -3,6 +3,7 @@ model Book {
     title          String
     description    String
     rentalprice    Float
+    bookURL        String
     sellingprice   Float
     author         Author      @relation(fields: [authorAuthorid], references: [authorid])
     authorAuthorid Int

@@ -1,4 +1,5 @@
 import db from "../db/db.js";
+import cloudinaryupload from "../utils/cloudinary.service.js";
 
 export const getBooks = async (req, res) => {
   try {
@@ -28,19 +29,22 @@ export const bookdetail = async (req, res) => {
 export const addnewbook = async (req, res) => {
   const { title, description, rentalprice, sellingprice, authorAuthorid } =
     req.body;
+  console.log(req.file);
+  const bookURL = await cloudinaryupload(req);
+
   try {
     await db.book.create({
       data: {
         title,
         description,
-        sellingprice,
-        rentalprice,
-        authorAuthorid,
+        bookURL,
+        sellingprice: parseFloat(sellingprice),
+        rentalprice: parseFloat(rentalprice),
+        authorAuthorid: parseFloat(authorAuthorid),
       },
     });
     res.status(200).send("Book is created");
-  } catch {
-    res.status(500).send("Error in Creating book");
+  } catch (error) {
+    res.status(500).send(`Error in Creating book ${error}`);
   }
 };
-

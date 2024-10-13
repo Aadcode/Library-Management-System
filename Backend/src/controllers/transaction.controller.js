@@ -1,3 +1,3 @@
 export const rentabook = () => {};
 
-export const purchasbook = () => {};
+export const purchaseabook = () => {};
